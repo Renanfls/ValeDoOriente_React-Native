@@ -4,6 +4,7 @@ import {
   useFonts,
   Montserrat_400Regular,
   Montserrat_600SemiBold,
+  Montserrat_700Bold,
 } from "@expo-google-fonts/montserrat";
 
 import ShoppingCart from "./src/screens/ShoppingCart/index.js";
@@ -13,6 +14,7 @@ export default function App() {
   const [fontLoaded] = useFonts({
     MontserratRegular: Montserrat_400Regular,
     MontserratSemiBold: Montserrat_600SemiBold,
+    MontserratBold: Montserrat_700Bold,
   });
 
   if (!fontLoaded) {
@@ -20,8 +22,9 @@ export default function App() {
     return <View />;
   }
 
+  // flex: 1 setado no SafeAreaView faz com que o tamanho do flex seja sempre o tamanho da tela inteira
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}> 
       <StatusBar />
       <ShoppingCart {...mock} />
     </SafeAreaView>

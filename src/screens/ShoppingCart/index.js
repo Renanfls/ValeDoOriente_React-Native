@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { StyleSheet, ImageBackground, View,} from "react-native"; // Usamos chaves quando for um componente exportado
+import { StyleSheet, ImageBackground, FlatList, View} from "react-native"; // Usamos chaves quando for um componente exportado
 
-import Button from "../../components/Button";
-
+import Item from "./components/Item";
 import Banner from "./components/Banner";
 import Details from "./components/Details";
+import Button from "../../components/Button";
+import Texts from "../../components/Texts";
 
 import background from "../../../assets/bg-4.png";
 
-export default function ShoppingCart({banner, details}) {
+export default function ShoppingCart({banner, details, items}) {
     const [loading, setIsLoading] = useState(false);
     function handleButtonPress() {
         setIsLoading(true);
@@ -17,30 +18,54 @@ export default function ShoppingCart({banner, details}) {
         }, 2000);
     }
     return <>
-        <Banner {...banner} />
-        <ImageBackground source={background} style={styles.imageBackground}>
-            <View style={styles.view_requests}>
-                <Details {...details} />
-                <Button 
-                    // disabled // Desabilita botão
-                    // iconName="" // Add Icon
-                    isLoading={loading}
-                    title="Finalizar" 
-                    onPress={handleButtonPress} 
-                />
-            </View>
+        <ImageBackground source={background}>
+            <FlatList
+                data={items.list}
+                renderItem={Item}
+                keyExtractor={({ name }) => name}
+                ListHeaderComponent={() => {
+                    return <>
+                        <Banner {...banner} />
+                        <View style={styles.spacingView}>
+                            <Details {...details} />
+                            <Button 
+                                // disabled // Desabilita botão
+                                // iconName="" // Add Icon
+                                isLoading={loading}
+                                title="Finalizar" 
+                                onPress={handleButtonPress} 
+                            />
+                            <Texts style={styles.title}>{ items.title }</Texts>
+                        </View>
+                    </>
+                }}
+                ListFooterComponent={() => {
+                    return <>
+                        <View style={styles.spacingView}>
+                            <Button 
+                                // disabled // Desabilita botão
+                                // iconName="" // Add Icon
+                                isLoading={loading}
+                                title="Finalizar" 
+                                onPress={handleButtonPress} 
+                            />
+                        </View>
+                    </>
+                }}
+            />
         </ImageBackground>
     </>
 }
 
 const styles = StyleSheet.create({
-    imageBackground: {
-        height: 300,
-        resizeMode: "cover",
-        width: "100%",
+    title: {
+        color: "#1C0A05",
+        fontSize: 20,
+        fontWeight: "bold",
+        lineHeight: 32,
     },
-    view_requests: {
-        paddingVertical: 8, // Top e Bottom
+    spacingView: {
         paddingHorizontal: 16, // Left e Right
+        paddingVertical: 8, // Top e Bottom
     },
 });

@@ -36,8 +36,9 @@ const styles = StyleSheet.create({
     },
     nameStore: {
         fontSize: 16,
+        fontWeight: "bold",
         lineHeight: 26,
-        marginLeft: 12,
+        marginLeft: 8,
     },
     description: {
         color: "#757575",
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
     },
     price: {
         color: "#E5AF28",
-        fontSize: 20,
+        fontSize: 30,
         fontWeight: "bold",
         marginTop: 6,
     }
